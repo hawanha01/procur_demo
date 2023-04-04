@@ -25,9 +25,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     url = 'http://localhost:8069'
-    db = 'odoodb'
+    db = 'mydb'
     username = 'admin'
-    password = '123456'
+    password = 'admin'
     common = XMLRPC::Client.new2("#{url}/xmlrpc/2/common")
     uid = common.call('authenticate', db, username, password, {})
     
