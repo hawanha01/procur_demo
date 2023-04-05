@@ -59,22 +59,22 @@ class PurchaseOrdersController < ApplicationController
   def update
     respond_to do |format|
       if @purchase_order.update(purchase_order_params)
-        vendor_id = @models.call('execute_kw', @db, @uid, @password, 'res.partner', 'create', [{'name': @purchase_order.vendor}])
-        product_id = @models.call('execute_kw', @db, @uid, @password, 'product.product', 'create', [{'name': @purchase_order.product, 'standard_price': 100, 'detailed_type': 'product'}])
-        @models.call(
-          'execute_kw', 
-          @db, 
-          @uid, 
-          @password, 
-          'purchase.order',   
-          'write', 
-          [[@purchase_order.purchase_order_id], { 
-            'partner_id': vendor_id, 
-            'order_line': [
-              [0, 0, {'product_id': product_id}]
-            ]
-          }]
-        )
+        # vendor_id = @models.call('execute_kw', @db, @uid, @password, 'res.partner', 'create', [{'name': @purchase_order.vendor}])
+        # product_id = @models.call('execute_kw', @db, @uid, @password, 'product.product', 'create', [{'name': @purchase_order.product, 'standard_price': 100, 'detailed_type': 'product'}])
+        # @models.call(
+        #   'execute_kw', 
+        #   @db, 
+        #   @uid, 
+        #   @password, 
+        #   'purchase.order',   
+        #   'write', 
+        #   [[@purchase_order.purchase_order_id], { 
+        #     'partner_id': vendor_id, 
+        #     'order_line': [
+        #       [0, 0, {'product_id': product_id}]
+        #     ]
+        #   }]
+        # )
         format.html { redirect_to purchase_order_url(@purchase_order), notice: "Purchase order was successfully updated." }
         format.json { render :show, status: :ok, location: @purchase_order }
       else
@@ -113,10 +113,5 @@ class PurchaseOrdersController < ApplicationController
     def purchase_order_params
       params.require(:purchase_order).permit(:vendor, :product)
     end
-
-    def remove_unhashable_values(hash)
-      return hash unless hash.is_a?(Hash)
-      hash.reject { |_, value| !value.respond_to?(:to_h) }
-          .transform_values { |value| remove_unhashable_values(value) }
-    end    
+      
 end
