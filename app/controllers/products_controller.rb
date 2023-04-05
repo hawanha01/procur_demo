@@ -41,8 +41,6 @@ class ProductsController < ApplicationController
             'purchase_ok': true
           }]
         )
-
-        puts "product_id: #{product_id}"
         @product.product_id = product_id
         @product.save!
         format.html { redirect_to product_url(@product), notice: "Product was successfully created." }

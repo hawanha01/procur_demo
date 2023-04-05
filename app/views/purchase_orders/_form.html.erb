@@ -13,14 +13,14 @@
 
   <div>
     <%= form.label :vendor, style: "display: block" %>
-    <%= form.text_field :vendor %>
+    <%= form.select :vendor, options_for_select(vendor) %>
   </div>
 
   <div>
     <%= form.label :product, style: "display: block" %>
-    <%= form.text_field :product %>
+    <%= form.select :product, options_for_select(product) %>
   </div>
-
+  
   <div>
     <%= form.submit %>
   </div>
